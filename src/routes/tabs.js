@@ -4,7 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import Home from '../pages/home';
+import Inicio from '../pages/home';
 import Inserir from '../pages/inserir';
 import Historico from '../pages/historico';
 
@@ -15,7 +15,7 @@ const Tab = createBottomTabNavigator();
 export default function TabRoutes() {
   return (
     <Tab.Navigator
-      initialRouteName='Home'
+      initialRouteName='Inicio'
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: '#980BDA',
@@ -36,11 +36,11 @@ export default function TabRoutes() {
       }}>
 
       <Tab.Screen
-        name='Home'
-        component={Home}
+        name='Inicio'
+        component={Inicio}
         options={{
           tabBarIcon: ({ color, size }) => <Octicons name='home' color={color} size={size} />,
-          tabBarLabel: 'Home',
+          tabBarLabel: 'Inicio',
         }}
       />
 

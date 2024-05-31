@@ -46,5 +46,23 @@ export default StyleSheet.create({
   },
   fim:{
     marginBottom: 20,
-  }
+  },
+
+  btnTipo: {
+    borderWidth: 3,
+    padding: 10,
+    borderColor: '#000',
+  },
+  btnTipoSelected: {
+    borderWidth: 3,
+    padding: 10,
+    borderColor: 'red', 
+  },
+  textTipo: {
+    color: 'white',
+  },
+  textTipoSelected: {
+    fontWeight: 'bold',
+    color: 'red',
+  },
 })

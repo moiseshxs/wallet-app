@@ -6,27 +6,30 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import sqLiteTransacoes from '../../sqlite/sqLiteTransacoes';
 
 export default function App() {
-  const [tipo, setTipo] = useState("");
+  const [tipo, setTipo] = useState(null);
   const [valor, setValor] = useState("");
   const [descricao, setDescricao] = useState("");
   const [transacoes, setTransacoes] = useState([]);
 
+  const handleSelecionarTipo = (tipoSelecionado) => {
+    setTipo(tipoSelecionado);
+  };
+
   const salvar = () => {
-    sqLiteTransacoes.adicionarTransacao({
+    sqLiteTransacoes.create({
       tipo: tipo,
       valor: valor,
       descricao: descricao,
     })
+    setTipo(null);
+    setValor("");
+    setDescricao("");
     console.log('Informações salvas com sucesso!')
   };
 
   const transacaoAll = async () => {
     const transacao = await sqLiteTransacoes.all();
-    if (transacao !== false) {
-      setTransacoes(transacao);
-    } else {
-      return false;
-    }
+    setTransacoes(transacao);
   };
 
   useEffect(() => {
@@ -40,24 +43,35 @@ export default function App() {
       <StatusBar barStyle="light-content" />
       <View style={styles.container1}>
         <View style={styles.areaInputs}>
-          <TextInput
-            style={styles.input}
-            placeholder='Tipo'
-            onChangeText={setTipo}
-            value={tipo}
-          />
+
+        <Pressable
+            style={[styles.btnTipo, tipo === 'Entrada' ? styles.btnTipoSelected : null]}
+            onPress={() => handleSelecionarTipo('Entrada')}
+          >
+            <Text style={[styles.textTipo, tipo === 'Entrada' ? styles.textTipoSelected : null]}>Entrada</Text>
+          </Pressable>
+
+          <Pressable
+            style={[styles.btnTipo, tipo === 'Saida' ? styles.btnTipoSelected : null]}
+            onPress={() => handleSelecionarTipo('Saida')}
+          >
+            <Text style={[styles.textTipo, tipo === 'Saida' ? styles.textTipoSelected : null]}>Saída</Text>
+          </Pressable>
+
           <TextInput
             style={styles.input}
             placeholder='Valor'
             onChangeText={setValor}
             value={valor}
           />
+
           <TextInput
             style={styles.input}
             placeholder='Descricao'
             onChangeText={setDescricao}
             value={descricao}
           />
+
 
           <Pressable style={styles.btn} onPress={salvar}>
             <Text style={styles.textbtn}>Salvar</Text>

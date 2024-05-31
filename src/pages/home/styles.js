@@ -69,7 +69,7 @@ export default StyleSheet.create({
   },
   areaAtividade: {
     flexDirection: 'row',
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     borderColor: '#A7A5A6',
     paddingVertical: 15,
     gap: 10,
@@ -103,4 +103,10 @@ export default StyleSheet.create({
     color: '#A7A5A6',
     marginTop: 5,
   },
+
+  modalContainer: {
+    flex: 1,
+    backgroundColor: 'green',
+  },
+
 })
