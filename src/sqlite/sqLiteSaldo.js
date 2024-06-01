@@ -1,5 +1,4 @@
 import db from "./SQLiteDatabase";
-import TransacoesDB from "./sqLiteTransacoes";
 
 /**
  * INICIALIZAÇÃO DA TABELA

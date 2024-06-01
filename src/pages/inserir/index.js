@@ -16,15 +16,17 @@ export default function App() {
   };
 
   const salvar = () => {
-    sqLiteTransacoes.create({
+    sqLiteTransacoes.adicionarTransacao({
       tipo: tipo,
-      valor: valor,
+      valor: parseFloat(valor),
       descricao: descricao,
-    })
+      dia: new Date().toISOString()
+    });
     setTipo(null);
     setValor("");
     setDescricao("");
-    console.log('Informações salvas com sucesso!')
+    console.log('Informações salvas com sucesso!');
+    
   };
 
   const transacaoAll = async () => {
@@ -62,6 +64,7 @@ export default function App() {
             style={styles.input}
             placeholder='Valor'
             onChangeText={setValor}
+            
             value={valor}
           />
 
