@@ -42,7 +42,7 @@ const all = () => {
   return new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
-        "SELECT * FROM Transacoes;",
+        "SELECT * FROM Transacoes ORDER BY id DESC;",
         [],
         (_, { rows }) => resolve(rows._array),
         (_, error) => reject(error) // erro interno em tx.executeSql
@@ -85,8 +85,42 @@ const adicionarTransacao = (objTransacao) => {
   });
 };
 
+const somarEntradas = () => {
+  return new Promise((resolve, reject) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        "SELECT SUM(valor) AS total FROM Transacoes WHERE tipo = ?;",
+        ["Entrada"],
+        (_, { rows }) => {
+          const total = rows.item(0).total;
+          resolve(total);
+        },
+        (_, error) => reject(error)
+      );
+    });
+  });
+};
+
+const somarSaidas = () => {
+  return new Promise((resolve, reject) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        "SELECT SUM(valor) AS total FROM Transacoes WHERE tipo = ?;",
+        ["Saida"],
+        (_, { rows }) => {
+          const total = rows.item(0).total;
+          resolve(total);
+        },
+        (_, error) => reject(error)
+      );
+    });
+  });
+};
+
 export default {
   create,
   all,
   adicionarTransacao,
+  somarEntradas,
+  somarSaidas,
 };

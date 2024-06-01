@@ -26,7 +26,6 @@ export default function App() {
     setValor("");
     setDescricao("");
     console.log('Informações salvas com sucesso!');
-    
   };
 
   const transacaoAll = async () => {

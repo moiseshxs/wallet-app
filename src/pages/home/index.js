@@ -8,6 +8,8 @@ import sqLiteTransacoes from '../../sqlite/sqLiteTransacoes.js';
 export default function App() {
   const [transacoes, setTransacoes] = useState([]);
   const [saldo, setSaldo] = useState(0.0);
+  const [entradaSoma, setEntradaSoma] = useState("");
+  const [saidaSoma, setSaidaSoma] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const saldoId = async () => {
@@ -19,10 +21,6 @@ export default function App() {
     }
   };
 
-  useEffect(() => {
-    saldoId();
-  }, []);
-
   const transacaoAll = async () => {
     const transacao = await sqLiteTransacoes.all();
     if (transacao !== false) {
@@ -32,9 +30,22 @@ export default function App() {
     }
   };
 
+  const somarEntrada = async () => {
+    const somaEntrada = await sqLiteTransacoes.somarEntradas();
+    setEntradaSoma(somaEntrada);
+  };
+
+  const somarSaida = async () => {
+    const somaSaida = await sqLiteTransacoes.somarSaidas();
+    setSaidaSoma(somaSaida);
+  };
+
   useEffect(() => {
     transacaoAll();
-  }, [transacoes]);
+    saldoId();
+    somarEntrada();
+    somarSaida();
+  }, [transacoes, , , ]);
 
   const Atividade = ({ tipo, valor }) => (
     <View>
@@ -73,12 +84,12 @@ export default function App() {
           <View style={styles.areaEntSai}>
             <View style={styles.areaGastos}>
               <Feather name="trending-up" size={18} color="white" />
-              <Text style={styles.textGastos}>R$ 74,90</Text>
+              <Text style={styles.textGastos}>R$ {entradaSoma}</Text>
             </View>
 
             <View style={styles.areaGastos}>
               <Feather name="trending-down" size={18} color="white" />
-              <Text style={styles.textGastos}>R$ -13,00</Text>
+              <Text style={styles.textGastos}>R$ {saidaSoma}</Text>
             </View>
           </View>
         </View>
