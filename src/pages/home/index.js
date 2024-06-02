@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, SafeAreaView, StatusBar, FlatList, Modal, Pressable } from 'react-native';
+import { Text, View, SafeAreaView, StatusBar, FlatList, Modal, Pressable, Image } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import styles from './styles.js';
 import sqLiteSaldo from '../../sqlite/sqLiteSaldo.js';
@@ -45,9 +45,9 @@ export default function App() {
     saldoId();
     somarEntrada();
     somarSaida();
-  }, [transacoes, , , ]);
+  }, [transacoes, , ,]);
 
-  const Atividade = ({ tipo, valor }) => (
+  const Atividade = ({ tipo, valor, dia }) => (
     <View>
       <Pressable
         style={styles.areaAtividade}
@@ -62,7 +62,7 @@ export default function App() {
           <Text style={styles.valorAtiv}>R$ {valor}</Text>
         </View>
         <View>
-          <Text style={styles.diaAtiv}>28 MAI</Text>
+          <Text style={styles.diaAtiv}>{dia}</Text>
         </View>
       </Pressable>
     </View>
@@ -73,8 +73,13 @@ export default function App() {
       <StatusBar barStyle="light-content" />
       <View style={styles.areaHeader}>
         <View style={styles.areaProfile}>
-          <View style={styles.areaFoto}></View>
-          <Text style={styles.textNome}>Moises Henry</Text>
+          <View style={styles.areaFoto}>
+            <Image
+              source={require('../../../assets/images/profile/samuel.jpeg')}
+              style={styles.imgPerfil}
+            />
+          </View>
+          <Text style={styles.textNome}>Samuel Lopes</Text>
         </View>
 
         <View style={styles.areaValores}>
@@ -89,7 +94,7 @@ export default function App() {
 
             <View style={styles.areaGastos}>
               <Feather name="trending-down" size={18} color="white" />
-              <Text style={styles.textGastos}>R$ {saidaSoma}</Text>
+              <Text style={styles.textGastos}>R$ -{saidaSoma}</Text>
             </View>
           </View>
         </View>
@@ -99,7 +104,7 @@ export default function App() {
         <Text style={styles.textTitulo}>Atividades</Text>
         <FlatList
           data={transacoes}
-          renderItem={({ item }) => <Atividade tipo={item.tipo} valor={item.valor} />}
+          renderItem={({ item }) => <Atividade tipo={item.tipo} valor={item.valor} dia={item.dia} />}
           keyExtractor={(item, index) => index.toString()}
           showsVerticalScrollIndicator={false}
         />

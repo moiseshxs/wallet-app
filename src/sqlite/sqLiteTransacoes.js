@@ -42,14 +42,22 @@ const all = () => {
   return new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
-        "SELECT * FROM Transacoes ORDER BY id DESC;",
+        "SELECT *, strftime('%d/%m', dia) AS data_formatada FROM Transacoes ORDER BY dia DESC;",
         [],
-        (_, { rows }) => resolve(rows._array),
-        (_, error) => reject(error) // erro interno em tx.executeSql
+        (_, { rows }) => {
+          const transacoes = rows._array.map(row => ({
+            ...row,
+            dia: row.data_formatada
+          }));
+          resolve(transacoes);
+        },
+        (_, error) => reject(error)
       );
     });
   });
 };
+
+
 
 const adicionarTransacao = (objTransacao) => {
   return new Promise(async (resolve, reject) => {

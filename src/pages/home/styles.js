@@ -23,6 +23,11 @@ export default StyleSheet.create({
     borderRadius: 50,
     borderWidth: 3,
   },
+  imgPerfil: {
+    height: '100%',
+    width: '100%',
+    borderRadius: 50,
+  },
   textNome: {
     fontSize: 20,
     fontWeight: 'bold',
