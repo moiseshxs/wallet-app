@@ -1,15 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Text, View, TextInput, Pressable, FlatList } from 'react-native';
 import styles from './styles';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import sqLiteTransacoes from '../../sqlite/sqLiteTransacoes';
+import { Entypo } from '@expo/vector-icons';
 
 export default function App() {
+  const textInputRef = useRef(null);
   const [tipo, setTipo] = useState(null);
   const [valor, setValor] = useState("");
   const [descricao, setDescricao] = useState("");
-  const [transacoes, setTransacoes] = useState([]);
 
   const handleSelecionarTipo = (tipoSelecionado) => {
     setTipo(tipoSelecionado);
@@ -28,24 +29,30 @@ export default function App() {
     console.log('Informações salvas com sucesso!');
   };
 
-  const transacaoAll = async () => {
-    const transacao = await sqLiteTransacoes.all();
-    setTransacoes(transacao);
-  };
-
   useEffect(() => {
-    transacaoAll();
-  }, [transacoes]);
-
-
+    // Focus the TextInput when the screen is mounted
+    if (textInputRef.current) {
+      textInputRef.current.focus();
+    }
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" />
-      <View style={styles.container1}>
-        <View style={styles.areaInputs}>
-
-        <Pressable
+      <View style={styles.areaHeader}>
+        <TextInput
+          ref={textInputRef}
+          style={styles.inputValor}
+          placeholder='R$ 0'
+          onChangeText={setValor}
+          value={valor}
+          keyboardAppearance='dark'
+          keyboardType='decimal-pad'
+        />
+      </View>
+      <View style={styles.areaBody}>
+        <View style={styles.areaOpcoes}>
+          <Pressable
             style={[styles.btnTipo, tipo === 'Entrada' ? styles.btnTipoSelected : null]}
             onPress={() => handleSelecionarTipo('Entrada')}
           >
@@ -58,43 +65,27 @@ export default function App() {
           >
             <Text style={[styles.textTipo, tipo === 'Saida' ? styles.textTipoSelected : null]}>Saída</Text>
           </Pressable>
+        </View>
 
-          <TextInput
-            style={styles.input}
-            placeholder='Valor'
-            onChangeText={setValor}
-            
-            value={valor}
-          />
+        <View style={styles.areaForm}>
+          <View style={styles.areaInput}>
+            <Text style={styles.textTitle}>Descricão (opcional)</Text>
+            <TextInput
+              style={styles.inputForm}
+              onChangeText={setDescricao}
+              value={descricao}
+              keyboardAppearance='dark'
+            />
+          </View>
 
-          <TextInput
-            style={styles.input}
-            placeholder='Descricao'
-            onChangeText={setDescricao}
-            value={descricao}
-          />
+        </View>
 
-
-          <Pressable style={styles.btn} onPress={salvar}>
-            <Text style={styles.textbtn}>Salvar</Text>
+        <View style={styles.areaSalvar}>
+          <Pressable style={styles.btnSalvar} onPress={salvar}>
+            <Entypo name="check" size={28} color="#FFF" />
           </Pressable>
         </View>
 
-        <View style={styles.areaResposta}>
-          <FlatList
-            data={transacoes}
-            keyExtractor={item => item.id}
-            renderItem={({ item }) => (
-              <View>
-                <Text>{item.id}</Text>
-                <Text>{item.tipo}</Text>
-                <Text>{item.valor}</Text>
-                <Text>{item.dia}</Text>
-                <Text>{item.descricao}</Text>
-              </View>
-            )}
-          />
-        </View>
       </View>
     </SafeAreaView>
   );

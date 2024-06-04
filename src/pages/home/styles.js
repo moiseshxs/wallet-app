@@ -65,6 +65,13 @@ export default StyleSheet.create({
     borderTopLeftRadius: 45,
     borderTopRightRadius: 45,
     paddingHorizontal: 20,
+
+    shadowColor: '#000',
+    shadowOpacity: 0.30,
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    }
   },
   textTitulo: {
     fontSize: 30,

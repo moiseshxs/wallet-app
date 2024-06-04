@@ -25,9 +25,10 @@ export default function TabRoutes() {
           backgroundColor: '#272727',
           tabBarLabelPosition: 'below-icon',
           paddingBottom: 3,
+          borderTopWidth: 0,
 
           shadowColor: '#000',
-          shadowOpacity: 0.10,
+          shadowOpacity: 0.30,
           shadowOffset: {
             width: 0,
             height: 0,
@@ -59,6 +60,13 @@ export default function TabRoutes() {
                   borderRadius: 50,
                   justifyContent: 'center',
                   alignItems: 'center',
+
+                  shadowColor: '#000',
+                  shadowOpacity: 0.30,
+                  shadowOffset: {
+                    width: 0,
+                    height: 0,
+                  }
                 }}
               >
                 <Entypo name='plus' color={'#FFF'} size={30} />

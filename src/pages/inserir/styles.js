@@ -6,63 +6,92 @@ export default StyleSheet.create({
     backgroundColor: "#980BDA",
     justifyContent: 'center',
   }, 
-  container1: {
+  areaHeader: {
     flex: 1,
-    backgroundColor: "#272727",
+    backgroundColor: "#202020",
     justifyContent: 'center',
   }, 
-  areaInputs: {
-    flex: 2,
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
+  inputValor: {
+   height: '100%',
+   width: '100%',
+   fontSize: 70,
+   fontWeight: 'bold',
+   textAlign: 'right',
+   color: '#FFF',
+   paddingHorizontal: 20,
   },
-  input: {
-    borderWidth: 1,
-    borderRadius: 5,
-    width: '90%',
-    padding: 10,
-    fontSize: 20,
-    backgroundColor: '#d9d9d9',
+
+  areaBody: {
+    flex: 4,
+    backgroundColor: "#272727",
+    justifyContent: 'center',
+    paddingHorizontal: 20,
   },
-  btn: {
-    width: '70%',
-    height: 40,
-    borderRadius: 40,
-    borderWidth: 2,
+  areaOpcoes: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'black',
+    flexDirection: 'row',
+    gap: 20,
   },
-  textbtn: {
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 18,
-  },
-
-  areaResposta: {
-    flex: 2,
-    justifyContent: 'space-evenly',
+  btnTipo: {
+    backgroundColor: '#9b9b9b',
+    height: 40,
+    width: 80,
+    borderRadius: 100,
+    justifyContent: 'center',
     alignItems: 'center',
   },
-  fim:{
-    marginBottom: 20,
-  },
-
-  btnTipo: {
-    borderWidth: 3,
-    padding: 10,
-    borderColor: '#000',
-  },
   btnTipoSelected: {
-    borderWidth: 3,
-    padding: 10,
-    borderColor: 'red', 
+    backgroundColor: '#980BDA',
   },
   textTipo: {
-    color: 'white',
+    color: '#2b2b2b',
+    fontWeight: 'bold',
   },
   textTipoSelected: {
-    fontWeight: 'bold',
-    color: 'red',
+    color: '#FFF',
   },
+
+  areaForm: {
+    flex: 4,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  areaInput: {
+    width: '100%',
+  },
+  textTitle: {
+    color: '#FFF',
+    fontWeight: 'bold',
+    fontSize: 17,
+  },
+  inputForm: {
+    width: '100%',
+    height: 40,
+    borderBottomWidth: 1,
+    borderColor: '#A7A5A6',
+    fontSize: 20,
+    paddingHorizontal: 10,
+    color: '#FFF',
+  },
+
+  areaSalvar: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    paddingVertical: 10,
+  },
+  btnSalvar: {
+    height: 70,
+    width: 70,
+    backgroundColor: '#980BDA',
+    borderRadius: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  areaVazia: {
+    flex: 4,
+  }
 })
