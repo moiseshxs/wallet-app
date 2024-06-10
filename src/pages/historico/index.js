@@ -8,52 +8,52 @@ import {
   Switch,
   Dimensions,
 } from "react-native";
-import { BarChart } from "react-native-chart-kit";
+import { BarChart, PieChart } from "react-native-chart-kit";
 
 const screenWidth = Dimensions.get("window").width;
-
-const data = {
-  labels: [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ],
-  entrada: [
-    3000, 4500, 3500, 5000, 6000, 7000, 8000, 5500, 6500, 7500, 8500, 9000,
-  ],
-  saida: [
-    2000, 3000, 2500, 4000, 4500, 5000, 5500, 4000, 5000, 6000, 6500, 7000,
-  ],
-};
-
-
+const screenHeight = Dimensions.get("window").height;
 
 export default function App() {
+  
 
+  const data = {
+    labels: [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ],
+    entrada: [
+      3000, 4500, 3500, 5000, 6000, 7000, 8000, 5500, 6500, 7500, 8500, 9000,
+    ],
+    saida: [
+      2000, 3000, 2500, 4000, 4500, 5000, 5500, 4000, 5000, 6000, 6500, 7000,
+    ],
+  };
+  
   const [isEntrada, setIsEntrada] = useState(true);
 
   const toggleeSwitch = () => setIsEntrada((previousState) => !previousState);
 
   const chartConfig = {
-    backgroundGradientFrom: "#2d2d2d", 
-    backgroundGradientTo: "#2d2d2d",   
-    color: () => isEntrada ? `rgb(0, 255, 0)` : `rgb(255, 0, 0)`, 
+    backgroundGradientFrom: "#2d2d2d",
+    backgroundGradientTo: "#2d2d2d",
+    color: () => (isEntrada ? `rgb(0, 255, 0)` : `rgb(255, 0, 0)`),
     barPercentage: 0.5,
     decimalPlaces: 0,
     style: {
-      borderRadius: 16
+      borderRadius: 16,
     },
-    withHorizontalLines: false, 
-  withVerticalLines: false,   
+    withHorizontalLines: false,
+    withVerticalLines: false,
   };
 
   const chartData = {
@@ -87,28 +87,39 @@ export default function App() {
         </View>
         {grafico ? (
           <View style={styles.grafico}>
-            <Text style={styles.titlee}>Entradas e Saídas Mensais</Text>
-            <View style={styles.switchContainer}>
-              <Text>Entrada</Text>
-              <Switch
-                trackColor={{ false: "#767577", true: "#81b0ff" }}
-                thumbColor={isEntrada ? "#f5dd4b" : "#f4f3f4"}
-                onValueChange={toggleeSwitch}
-                value={isEntrada}
-              />
-              <Text>Saída</Text>
+            <View style={styles.tituloGrafico}>
+              <Text style={styles.titlee}>Entradas e Saídas Mensais</Text>
             </View>
-            <BarChart
-              data={chartData}
-              width={screenWidth}
-              height={220}
-              chartConfig={chartConfig}
-              fromZero={true}
-              showBarTops={false}
-              style={{
-                borderRadius: 16,
-              }}
-            />
+            <View style={styles.contentGrafico}>
+              <View style={styles.switchContainer}>
+                <Text style={styles.textES}>Saída</Text>
+                <Switch
+                  trackColor={{ false: "#767577", true: "#767577" }}
+                  thumbColor={isEntrada ? `rgb(0, 255, 0)` : `rgb(255, 0, 0)`}
+                  onValueChange={toggleeSwitch}
+                  value={isEntrada}
+                />
+                <Text style={styles.textES}>Entrada</Text>
+              </View>
+              <View style={styles.graficos}>
+                <BarChart
+                  data={chartData}
+                  width={screenWidth - 10}
+                  height={screenHeight/3.5}
+                  chartConfig={chartConfig}
+                  fromZero={true}
+                  showBarTops={false}
+                  showValuesOnTopOfBars={true}
+                  withInnerLines={false}
+                  style={{
+                    borderRadius: 16,
+                  }}
+                />
+                <View style={styles.pizza}>
+
+                </View>
+              </View>
+            </View>
           </View>
         ) : (
           <View style={styles.dados}>
@@ -237,11 +248,10 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "10%",
     display: "flex",
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
     alignItems: "center",
     flexDirection: "row",
-    gap: 10,
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
     backgroundColor: "#323232",
     borderBottomWidth: 0.7,
     borderColor: "#66487A",
@@ -257,7 +267,23 @@ const styles = StyleSheet.create({
   },
   grafico: {
     width: "100%",
-    height: "90%",
+    flex: 1,
+    display: "flex",
+    alignItems: "center",
+  },
+  tituloGrafico: {
+    flex: 0.7,
+  },
+  contentGrafico: {
+    flex: 10,
+  },
+  graficos: {
+    flex: 5,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    paddingBottom:30,
+    alignItems: 'center'
   },
   itemRecebido: {
     width: "100%",
@@ -343,12 +369,30 @@ const styles = StyleSheet.create({
     backgroundColor: "#323232",
   },
   titlee: {
-    fontSize: 20,
-    marginBottom: 20,
+    fontSize: 22,
+    marginBottom: 10,
+    color: "gray",
+    marginTop: 10,
+    fontWeight: "bold",
   },
   switchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 20,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    paddingBottom: 10,
+    width: "100%",
+    paddingHorizontal: 10,
+    flex: 0.5
   },
+  textES: {
+    color: "white",
+    fontSize: 20,
+  },
+  pizza: {
+    width: screenWidth - 10,
+    backgroundColor:'#2d2d2d',
+    height: screenHeight/3.5,
+    borderRadius: 16
+  }
 });
